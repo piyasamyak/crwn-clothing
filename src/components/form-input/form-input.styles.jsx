@@ -1,12 +1,29 @@
-$sub-color: grey;
-$main-color: black;
+import styled, {css} from 'styled-components';
 
-@mixin shrinkLabel {
+const subColor = 'grey';
+const mainColor = 'black';
+
+const shrinkLabelStyles = css`
   top: -14px;
   font-size: 12px;
-  color: $main-color;
-}
+  color: ${mainColor};
+`
+const FormInputLabel = styled.label`
+color: $sub-color;
+    font-size: 16px;
+    font-weight: normal;
+    position: absolute;
+    pointer-events: none;
+    left: 5px;
+    top: 10px;
+    transition: 300ms ease all;
 
+    ${({shrink}) => shrink && shrinkLabelStyles};
+
+    &.shrink {
+      @include shrinkLabel();
+    }
+`
 .group {
   position: relative;
   margin: 45px 0;
@@ -38,17 +55,6 @@ $main-color: black;
   }
 
   .form-input-label {
-    color: $sub-color;
-    font-size: 16px;
-    font-weight: normal;
-    position: absolute;
-    pointer-events: none;
-    left: 5px;
-    top: 10px;
-    transition: 300ms ease all;
-
-    &.shrink {
-      @include shrinkLabel();
-    }
+    
   }
 }
