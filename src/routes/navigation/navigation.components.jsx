@@ -1,12 +1,11 @@
-import { Fragment, useContext } from "react";
 import { Outlet } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import CartIcon from "../../components/cart-icon/cart-icon.component";
 import CartDropdown from "../../components/cart-dropdown/cart-dropdown.component";
 
 import { ReactComponent as FashiqueLogo } from "../../assets/fashique.svg";
-import { UserContext } from "../../contexts/user.context";
-import { CartContext } from "../../contexts/cart.context";
+import { selectCurrentUser } from "../../store/user/user.selector.js";
 
 import { signOutUser } from "../../utils/firebase/firebase.utils.js";
 
@@ -16,13 +15,14 @@ import {
   NavLinks,
   NavLink,
 } from "./navigation.styles.jsx";
+import { selectIsCartOpen } from "../../store/cart/cart.selector.js";
 
 const Navigation = () => {
-  const { currentUser } = useContext(UserContext);
-  const { isCartOpen } = useContext(CartContext);
+  const currentUser = useSelector(selectCurrentUser);
+  const isCartOpen = useSelector(selectIsCartOpen);
 
   return (
-    <Fragment>
+    <>
       <NavigationContainer>
         <LogoContainer to="/">
           <FashiqueLogo className="" />
@@ -42,7 +42,7 @@ const Navigation = () => {
         {isCartOpen && <CartDropdown />}
       </NavigationContainer>
       <Outlet />
-    </Fragment>
+    </>
   );
 };
 
