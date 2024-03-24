@@ -1,13 +1,11 @@
 import { Outlet } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import CartIcon from "../../components/cart-icon/cart-icon.component";
 import CartDropdown from "../../components/cart-dropdown/cart-dropdown.component";
 
 import { ReactComponent as FashiqueLogo } from "../../assets/fashique.svg";
 import { selectCurrentUser } from "../../store/user/user.selector.js";
-
-import { signOutUser } from "../../utils/firebase/firebase.utils.js";
 
 import {
   NavigationContainer,
@@ -16,10 +14,14 @@ import {
   NavLink,
 } from "./navigation.styles.jsx";
 import { selectIsCartOpen } from "../../store/cart/cart.selector.js";
+import { signOutStart } from "../../store/user/user.action.js";
 
 const Navigation = () => {
+  const dispatch = useDispatch();
   const currentUser = useSelector(selectCurrentUser);
   const isCartOpen = useSelector(selectIsCartOpen);
+
+  const signOutUser = () => dispatch(signOutStart());
 
   return (
     <>
